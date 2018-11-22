@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.system.dao.WrAdBMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.WrAdB">
+        <id column="AD_CD" property="adCd" />
+        <result column="AD_NM" property="adNm" />
+        <result column="AD_SHNM" property="adShnm" />
+        <result column="AD_A" property="adA" />
+        <result column="TS" property="ts" />
+        <result column="NT" property="nt" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        AD_CD, AD_NM, AD_SHNM, AD_A, TS, NT
+    </sql>
+
+</mapper>
