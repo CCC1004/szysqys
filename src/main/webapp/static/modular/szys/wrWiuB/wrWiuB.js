@@ -14,7 +14,8 @@ var WrWiuB = {
 WrWiuB.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-            {title: '编码', field: 'uuid', visible: true, align: 'center', valign: 'middle'},
+            //编码若需隐藏，visible设置为 false
+            {title: '编码', field: 'uuid', visible: false, align: 'center', valign: 'middle'},
             // {title: '登记序号', field: 'djxh', visible: true, align: 'center', valign: 'middle'},
             // {title: '纳税人识别号', field: 'nsrsbh', visible: true, align: 'center', valign: 'middle'},
             {title: '取用水户全称', field: 'wiuNm', visible: true, align: 'center', valign: 'middle'},
@@ -98,14 +99,19 @@ WrWiuB.openWrWiuBDetail = function () {
  */
 WrWiuB.delete = function () {
     if (this.check()) {
-        var ajax = new $ax(Feng.ctxPath + "/wrWiuB/delete", function (data) {
-            Feng.success("删除成功!");
-            WrWiuB.table.refresh();
-        }, function (data) {
-            Feng.error("删除失败!" + data.responseJSON.message + "!");
-        });
-        ajax.set("wrWiuBId",this.seItem.uuid);
-        ajax.start();
+
+        var operation = function(){
+            var ajax = new $ax(Feng.ctxPath + "/wrWiuB/delete", function (data) {
+                Feng.success("删除成功!");
+                WrWiuB.table.refresh();
+            }, function (data) {
+                Feng.error("删除失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("wrWiuBId",WrWiuB.seItem.uuid);
+            ajax.start();
+        };
+
+        Feng.confirm("是否刪除该取用水户?", operation);
     }
 };
 

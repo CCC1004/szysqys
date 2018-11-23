@@ -1,13 +1,13 @@
 @layout("/common/_container.html"){
 <div class="ibox float-e-margins">
     <div class="ibox-content">
-        <div class="form-horizontal">
+        <div class="form-horizontal" id="wrWiuBInfo">
 
             <div class="row">
                 <div class="col-sm-6 b-r">
-                            <#input id="uuid" name="编码（UUID）" value="${item.uuid}" underline="true"/>
-                            <#input id="djxh" name="登记序号（金三唯一标识纳税人）" value="${item.djxh}" underline="true"/>
-                            <#input id="nsrsbh" name="纳税人识别号（或统一社会信用代码）" value="${item.nsrsbh}" underline="true"/>
+                            <!--<#input id="uuid" name="编码（UUID）" value="${item.uuid}" underline="true"/>-->
+                            <!--<#input id="djxh" name="登记序号（金三唯一标识纳税人）" value="${item.djxh}" underline="true"/>-->
+                            <#input id="nsrsbh" name="纳税人识别号" value="${item.nsrsbh}" underline="true"/>
                             <#input id="wiuNm" name="取用水户全称" value="${item.wiuNm}" underline="true"/>
                             <#input id="lrNm" name="责任人姓名" value="${item.lrNm}" underline="true"/>
                             <#input id="lawAtt" name="取用水户性质" value="${item.lawAtt}" underline="true"/>
@@ -23,7 +23,12 @@
                 </div>
 
                 <div class="col-sm-6">
-                            <#input id="adlCd" name="归属行政层级代码" value="${item.adlCd}" underline="true"/>
+
+                    <#input id="adNm" name="归属行政层级" readonly="readonly" hidden="adlCd"
+                    hiddenValue="${item.adlCd}" value="${adNm}"
+                    clickFun="WrWiuBInfoDlg.showAddvSelectTree(); return false;"
+                    style="background-color: #ffffff !important;"/>
+
                             <#input id="sljgCd" name="取水所在属地水利机关" value="${item.sljgCd}" underline="true"/>
                             <#input id="swjgCd" name="取水所在属地税务机关" value="${item.swjgCd}" underline="true"/>
                             <#input id="web" name="网址" value="${item.web}" underline="true"/>
@@ -39,6 +44,12 @@
                             <#input id="lttd" name="纬度" value="${item.lttd}" underline="true"/>
                             <#input id="nt" name="备注" value="${item.nt}" />
                 </div>
+            </div>
+
+            <!-- 行政区划的选择框 -->
+            <div id="parentAddvMenu" class="menuContent"
+                 style="display: none; position: absolute; z-index: 200;">
+                <ul id="parentAddvMenuTree" class="ztree tree-box" style="width: 245px !important;"></ul>
             </div>
 
             <div class="row btn-group-m-t">

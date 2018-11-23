@@ -1,12 +1,12 @@
 @layout("/common/_container.html"){
 <div class="ibox float-e-margins">
     <div class="ibox-content">
-        <div class="form-horizontal">
+        <div class="form-horizontal" id="wrWiuBInfo">
 
             <div class="row">
                 <div class="col-sm-6 b-r">
-                            <#input id="uuid" name="取用水户编码" underline="true"/>
-                            <#input id="djxh" name="登记序号" underline="true"/>
+                            <!--<#input id="uuid" name="取用水户编码" underline="true"/>-->
+                            <!--<#input id="djxh" name="登记序号" underline="true"/>-->
                             <#input id="nsrsbh" name="纳税人识别号" underline="true"/>
                             <#input id="wiuNm" name="取用水户全称" underline="true"/>
                             <#input id="lrNm" name="责任人姓名" underline="true"/>
@@ -29,7 +29,10 @@
 
                 <span class="col-sm-6">
 
-                     <span style="color: red">*</span><#input id="adlCd" name="归属行政层级代码" underline="true"/>
+                    <#input id="adNm" name="归属行政层级" readonly="readonly" hidden="adlCd"
+                            clickFun="WrWiuBInfoDlg.showAddvSelectTree(); return false;"
+                            style="background-color: #ffffff !important;"/>
+
                             <#input id="sljgCd" name="取水所在属地水利机关" underline="true" />
                             <#input id="swjgCd" name="取水所在属地税务机关" underline="true"/>
                             <#input id="web" name="网址" underline="true"/>
@@ -45,6 +48,12 @@
                             <#input id="lttd" name="纬度" underline="true"/>
                             <#input id="nt" name="备注" underline="true"/>
                 </div>
+            </div>
+
+            <!-- 行政区划的选择框 -->
+            <div id="parentAddvMenu" class="menuContent"
+                 style="display: none; position: absolute; z-index: 200;">
+                <ul id="parentAddvMenuTree" class="ztree tree-box" style="width: 245px !important;"></ul>
             </div>
 
             <div class="row btn-group-m-t">

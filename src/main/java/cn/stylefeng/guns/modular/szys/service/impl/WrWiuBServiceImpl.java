@@ -1,9 +1,11 @@
 package cn.stylefeng.guns.modular.szys.service.impl;
 
+import cn.stylefeng.guns.modular.system.dao.WrAdBMapper;
 import cn.stylefeng.guns.modular.system.model.WrWiuB;
 import cn.stylefeng.guns.modular.system.dao.WrWiuBMapper;
 import cn.stylefeng.guns.modular.szys.service.IWrWiuBService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +19,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class WrWiuBServiceImpl extends ServiceImpl<WrWiuBMapper, WrWiuB> implements IWrWiuBService {
 
+    @Autowired
+    private WrWiuBMapper wrWiuBMapper;
+
+    @Override
+    public WrWiuB selectByAccount(String account) {
+        WrWiuB wrWiuB = wrWiuBMapper.selectByAccount(account);
+        return wrWiuB;
+    }
 }

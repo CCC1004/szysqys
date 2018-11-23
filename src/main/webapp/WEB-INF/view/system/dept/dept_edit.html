@@ -15,7 +15,10 @@
                 </div>
                 <div class="col-sm-6">
                     <#input id="num" name="排序" underline="true" value="${dept.num}"/>
-                    <#input id="adid" name="行政区划" underline="true" value="${dept.adid}"/>
+                    <#input id="adNm" name="行政区划" readonly="readonly" hidden="adid"
+                            hiddenValue="${dept.adid}" value="${adNm}"
+                            clickFun="DeptInfoDlg.showAddvSelectTree(); return false;"
+                            style="background-color: #ffffff !important;"/>
 
                     <#input id="pName" name="上级机构" readonly="readonly" hidden="pid"
                             hiddenValue="${dept.pid}" value="${pName}"
@@ -28,6 +31,12 @@
             <div id="parentDeptMenu" class="menuContent"
                  style="display: none; position: absolute; z-index: 200;">
                 <ul id="parentDeptMenuTree" class="ztree tree-box" style="width: 245px !important;"></ul>
+            </div>
+
+            <!-- 行政区划的选择框 -->
+            <div id="parentAddvMenu" class="menuContent"
+                 style="display: none; position: absolute; z-index: 200;">
+                <ul id="parentAddvMenuTree" class="ztree tree-box" style="width: 245px !important;"></ul>
             </div>
 
             <div class="row btn-group-m-t">

@@ -13,4 +13,10 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IWrWiuBService extends IService<WrWiuB> {
 
+
+    /**
+     * 根据纳税人识别号（或统一社会信用代码）,获取取用水户信息
+     */
+    WrWiuB selectByAccount(String account);
+
 }

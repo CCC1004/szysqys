@@ -64,6 +64,11 @@ public interface IConstantFactory {
     String getDeptName(Integer deptId);
 
     /**
+     * 获取行政区划名称
+     */
+    String getAddvName(String adId);
+
+    /**
      * 获取菜单的名称们(多个)
      */
     String getMenuNames(String menuIds);

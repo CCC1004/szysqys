@@ -20,7 +20,7 @@ var DeptInfoDlg = {
                 }
             }
         },
-        adid: {
+        adNm: {
             validators: {
                 notEmpty: {
                     message: '行政区划不能为空'
@@ -109,6 +109,55 @@ DeptInfoDlg.hideDeptSelectTree = function() {
     $("body").unbind("mousedown", onBodyDown);// mousedown当鼠标按下就可以触发，不用弹起
 }
 
+/****************************行政区划tree***************************************/
+
+/**
+ * 点击行政区划ztree列表的选项时
+ *
+ * @param e
+ * @param treeId
+ * @param treeNode
+ * @returns
+ */
+DeptInfoDlg.onClickAddv = function(e, treeId, treeNode) {
+    $("#adNm").attr("value", DeptInfoDlg.adZtreeInstance.getSelectedVal());
+    $("#adid").attr("value", treeNode.id);
+}
+
+/**
+ * 显示机构选择的树
+ *
+ * @returns
+ */
+DeptInfoDlg.showAddvSelectTree = function() {
+    var adNm = $("#adNm");
+    var adNmOffset = $("#adNm").offset();
+    $("#parentAddvMenu").css({
+        left : adNmOffset.left + "px",
+        top : adNmOffset.top + adNm.outerHeight() + "px"
+    }).slideDown("fast");
+
+    $("body").bind("mousedown", onBodyDownAddv);
+}
+
+function onBodyDownAddv(event) {
+    if (!(event.target.id == "menuBtn" || event.target.id == "parentAddvMenu" || $(
+        event.target).parents("#parentAddvMenu").length > 0)) {
+        DeptInfoDlg.hideAddvSelectTree();
+    }
+}
+
+/**
+ * 隐藏机构选择的树
+ */
+DeptInfoDlg.hideAddvSelectTree = function() {
+    $("#parentAddvMenu").fadeOut("fast");
+    $("body").unbind("mousedown", onBodyDownAddv);// mousedown当鼠标按下就可以触发，不用弹起
+}
+
+/****************************行政区划tree***************************************/
+
+
 /**
  * 收集数据
  */
@@ -183,14 +232,15 @@ function onBodyDown(event) {
 $(function() {
     Feng.initValidator("deptInfoForm", DeptInfoDlg.validateFields);
 
+    //上级机构
     var ztree = new $ZTree("parentDeptMenuTree", "/dept/tree");
     ztree.bindOnClick(DeptInfoDlg.onClickDept);
     ztree.init();
     DeptInfoDlg.zTreeInstance = ztree;
 
     //行政区划
-    var adZtree = new $ZTree("parentDeptMenuTree", "/dept/adTree");
-    adZtree.bindOnClick(DeptInfoDlg.onClickDept);
+    var adZtree = new $ZTree("parentAddvMenuTree", "/dept/adTree");
+    adZtree.bindOnClick(DeptInfoDlg.onClickAddv);
     adZtree.init();
     DeptInfoDlg.adZtreeInstance = adZtree;
 });

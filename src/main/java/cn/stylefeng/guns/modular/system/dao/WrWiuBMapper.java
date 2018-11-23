@@ -13,4 +13,10 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface WrWiuBMapper extends BaseMapper<WrWiuB> {
 
+    /**
+     * 根据纳税人识别号（当前用户登录名），获取取用水信息
+     * @param account 用户的登录名，即对应取用水户的纳税人识别号
+     * @return
+     */
+    WrWiuB selectByAccount(String account);
 }

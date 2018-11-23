@@ -83,6 +83,10 @@ public class User extends Model<User> {
      */
     private Integer version;
 
+    /**
+     * 用户类型（1：水行政主管部门  2：取用水户）
+     */
+    private String type;
 
     public Integer getId() {
         return id;
@@ -204,6 +208,14 @@ public class User extends Model<User> {
         this.version = version;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -213,20 +225,21 @@ public class User extends Model<User> {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", avatar=" + avatar +
-                ", account=" + account +
-                ", password=" + password +
-                ", salt=" + salt +
-                ", name=" + name +
+                ", avatar='" + avatar + '\'' +
+                ", account='" + account + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", name='" + name + '\'' +
                 ", birthday=" + birthday +
                 ", sex=" + sex +
-                ", email=" + email +
-                ", phone=" + phone +
-                ", roleid=" + roleid +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", roleid='" + roleid + '\'' +
                 ", deptid=" + deptid +
                 ", status=" + status +
                 ", createtime=" + createtime +
                 ", version=" + version +
-                "}";
+                ", type='" + type + '\'' +
+                '}';
     }
 }

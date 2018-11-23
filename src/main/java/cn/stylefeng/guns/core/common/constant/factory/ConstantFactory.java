@@ -52,6 +52,8 @@ public class ConstantFactory implements IConstantFactory {
     private MenuMapper menuMapper = SpringContextHolder.getBean(MenuMapper.class);
     private NoticeMapper noticeMapper = SpringContextHolder.getBean(NoticeMapper.class);
 
+    private WrAdBMapper wrAdBMapper = SpringContextHolder.getBean(WrAdBMapper.class);
+
     public static IConstantFactory me() {
         return SpringContextHolder.getBean("constantFactory");
     }
@@ -151,6 +153,20 @@ public class ConstantFactory implements IConstantFactory {
             return dept.getFullname();
         }
         return "";
+    }
+
+    /**
+     * 获取行政区划
+     * @param adId 行政区划id
+     * @return
+     */
+    @Override
+    public String getAddvName(String adId) {
+        WrAdB wrAdB = wrAdBMapper.selectById(adId);
+        if (ToolUtil.isNotEmpty(wrAdB) && ToolUtil.isNotEmpty(wrAdB.getAdNm())) {
+            return wrAdB.getAdNm();
+        }
+         return "";
     }
 
     /**

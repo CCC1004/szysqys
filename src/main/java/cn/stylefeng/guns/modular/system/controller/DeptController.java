@@ -79,6 +79,8 @@ public class DeptController extends BaseController {
         Dept dept = deptService.selectById(deptId);
         model.addAttribute(dept);
         model.addAttribute("pName", ConstantFactory.me().getDeptName(dept.getPid()));
+        //行政区划
+        model.addAttribute("adNm", ConstantFactory.me().getAddvName(dept.getAdid()));
         LogObjectHolder.me().set(dept);
         return PREFIX + "dept_edit.html";
     }
@@ -100,7 +102,7 @@ public class DeptController extends BaseController {
     @RequestMapping(value = "/adTree")
     @ResponseBody
     public List<ZTreeNode> adTree() {
-        List<ZTreeNode> tree = this.deptService.tree();
+        List<ZTreeNode> tree = this.deptService.adTree();
         tree.add(ZTreeNode.createParent());
         return tree;
     }

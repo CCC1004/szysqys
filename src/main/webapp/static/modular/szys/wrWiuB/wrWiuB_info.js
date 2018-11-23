@@ -2,7 +2,32 @@
  * 初始化取用水户管理详情对话框
  */
 var WrWiuBInfoDlg = {
-    wrWiuBInfoData : {}
+    wrWiuBInfoData : {},
+    adZtreeInstance : null,//行政区划
+    validateFields: {
+        nsrsbh: {
+            validators: {
+                notEmpty: {
+                    message: '纳税人识别号不能为空'
+                }
+            }
+        },
+        wiuNm: {
+            validators: {
+                notEmpty: {
+                    message: '取用水户全称不能为空'
+                }
+            }
+        },
+        adNm: {
+            validators: {
+                notEmpty: {
+                    message: '归属行政层级不能为空'
+                }
+            }
+        },
+
+    }
 };
 
 /**
@@ -85,6 +110,11 @@ WrWiuBInfoDlg.addSubmit = function() {
     this.clearData();
     this.collectData();
 
+    //验证
+    if (!this.validate()) {
+        return;
+    }
+
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/wrWiuB/add", function(data){
         Feng.success("添加成功!");
@@ -117,6 +147,71 @@ WrWiuBInfoDlg.editSubmit = function() {
     ajax.start();
 }
 
+/**
+ * 验证数据是否为空
+ */
+WrWiuBInfoDlg.validate = function () {
+    $('#wrWiuBInfo').data("bootstrapValidator").resetForm();
+    $('#wrWiuBInfo').bootstrapValidator('validate');
+    return $("#wrWiuBInfo").data('bootstrapValidator').isValid();
+}
+
+/****************************行政区划tree***************************************/
+
+/**
+ * 点击行政区划ztree列表的选项时
+ *
+ * @param e
+ * @param treeId
+ * @param treeNode
+ * @returns
+ */
+WrWiuBInfoDlg.onClickAddv = function(e, treeId, treeNode) {
+    $("#adNm").attr("value", WrWiuBInfoDlg.adZtreeInstance.getSelectedVal());
+    $("#adlCd").attr("value", treeNode.id);
+}
+
+/**
+ * 显示机构选择的树
+ *
+ * @returns
+ */
+WrWiuBInfoDlg.showAddvSelectTree = function() {
+    var adNm = $("#adNm");
+    var adNmOffset = $("#adNm").offset();
+    $("#parentAddvMenu").css({
+        left : adNmOffset.left + "px",
+        top : adNmOffset.top + adNm.outerHeight() + "px"
+    }).slideDown("fast");
+
+    $("body").bind("mousedown", onBodyDownAddv);
+}
+
+function onBodyDownAddv(event) {
+    if (!(event.target.id == "menuBtn" || event.target.id == "parentAddvMenu" || $(
+        event.target).parents("#parentAddvMenu").length > 0)) {
+        WrWiuBInfoDlg.hideAddvSelectTree();
+    }
+}
+
+/**
+ * 隐藏机构选择的树
+ */
+WrWiuBInfoDlg.hideAddvSelectTree = function() {
+    $("#parentAddvMenu").fadeOut("fast");
+    $("body").unbind("mousedown", onBodyDownAddv);// mousedown当鼠标按下就可以触发，不用弹起
+}
+
+/****************************行政区划tree***************************************/
+
 $(function() {
+
+    //验证
+    Feng.initValidator("wrWiuBInfo", WrWiuBInfoDlg.validateFields);
+    //行政区划
+    var adZtree = new $ZTree("parentAddvMenuTree", "/common/adTree");
+    adZtree.bindOnClick(WrWiuBInfoDlg.onClickAddv);
+    adZtree.init();
+    WrWiuBInfoDlg.adZtreeInstance = adZtree;
 
 });

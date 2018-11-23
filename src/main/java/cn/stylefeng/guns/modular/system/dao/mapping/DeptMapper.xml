@@ -16,12 +16,20 @@
 
     <!-- 行政区划tree -->
     <select id="adTree" resultType="cn.stylefeng.guns.core.common.node.ZTreeNode">
-                SELECT AD_CD AS id, AD_NM as nm,
-        CASE
-        WHEN ( substr(AD_CD,3,4)='0000') THEN 0
-        WHEN ( substr(AD_CD,5,2)='00') THEN  CONCAT(substr(AD_CD,1,2),'0000')
-        ELSE  CONCAT(substr(AD_CD,1,4),'00') END
-        AS pId
+        SELECT AD_CD AS id,
+        (CASE
+            WHEN ( substr(AD_CD,3,4)='0000') THEN 0
+            WHEN ( substr(AD_CD,5,2)='00') THEN  CONCAT(substr(AD_CD,1,2),'0000')
+            ELSE  CONCAT(substr(AD_CD,1,4),'00') END)
+            AS pId,
+        AD_NM as name,
+        (CASE
+            WHEN (( substr(AD_CD,3,4)='0000') OR AD_CD IS NULL) THEN
+            'true'
+            ELSE
+            'false'
+            END
+            ) as isOpen
         FROM WR_AD_B
 	</select>
 

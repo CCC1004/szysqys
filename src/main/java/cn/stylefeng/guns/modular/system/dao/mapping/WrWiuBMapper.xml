@@ -41,4 +41,12 @@
         UUID, DJXH, NSRSBH, WIU_NM, LR_NM, LAW_ATT, USER_TP, TRAD_TP, IS_HI_LEV, ECO_TP, MON_G, WIU_TP, YR_WU, CERT_STA, IS_VIMP, ADL_CD, SLJG_CD, SWJG_CD, WEB, E_MAIL, ADDR, ZIP, TEL, FAX, ISUSE, RUN_STA, TS, LGTD, LTTD, NT
     </sql>
 
+    <select id="selectByAccount" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from wr_wiu_b
+        where NSRSBH = #{account}
+
+    </select>
+
 </mapper>
