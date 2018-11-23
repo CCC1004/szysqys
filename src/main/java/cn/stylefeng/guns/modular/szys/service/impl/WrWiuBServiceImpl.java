@@ -19,12 +19,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class WrWiuBServiceImpl extends ServiceImpl<WrWiuBMapper, WrWiuB> implements IWrWiuBService {
 
-    @Autowired
-    private WrWiuBMapper wrWiuBMapper;
 
     @Override
     public WrWiuB selectByAccount(String account) {
-        WrWiuB wrWiuB = wrWiuBMapper.selectByAccount(account);
+        WrWiuB wrWiuB = this.baseMapper.selectByAccount(account);
         return wrWiuB;
     }
 }
